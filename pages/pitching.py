@@ -31,14 +31,14 @@ layout=dbc.Container(
     # Title and Dashboard Explanation
     html.H1('MLB Pitching Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
     html.P("This page is the destination for reviewing MLB pitchers' results from the 2022 MLB Season! Included in the chart below is more than 20 statistical measures that determine how pitchers performed during play last season. Also included is 45 plotted points that represent the 45 MLB pitchers that qualified for 2022 MLB pitching awards. To qualify to be a pitcher on this graph, pitchers must have pitched at least 1 inning per game (or at least 162 innings during the entire season) last season. To make this scatter plot work, select two statistical measures (for both axes) that you'd like to use to compare pitchers with on this chart!",className='text-center text-dark mb-3 mt-2 fs-6'),
-    html.H3('Pitching Data Scatter Plot', className='text-primary text-center fs-3 mt-3 mb-0'),
+    html.H3('Pitching Data Scatter Plot', className='text-primary text-center fs-2 mt-3 mb-0'),
     # The Graph
     dbc.Row([
         dbc.Col(
             children=[
                 dcc.Graph(
                     id='pitcher_chart',
-                    className='m-5',
+                    className='m-4',
                     config=dict(displayModeBar=False),
                 ),
             ],
@@ -52,7 +52,7 @@ layout=dbc.Container(
             children=[
                 html.P('Please select a statistical measure for the X-axis to compare players with.',className='text-center text-dark fs-5 mt-3')
             ],
-            width=6,
+            width=6
         ),
         dbc.Col(
             children=[
@@ -76,6 +76,8 @@ layout=dbc.Container(
                     clearable=False
                 )
             ],
+            width=4,
+            className='offset-md-1'
         ),
         dbc.Col(
             children=[
@@ -89,7 +91,9 @@ layout=dbc.Container(
                     value='ERA',
                     clearable=False
                 )
-            ]
+            ],
+            width=4,
+            className='offset-md-2'
         )
     ]),
 
@@ -112,7 +116,7 @@ layout=dbc.Container(
                 href='https://www.mlb.com/glossary',className='text-primary fs-5'
             )
         ],
-        className='text-dark text-center fs-5 mb-5'
+        className='text-dark text-center fs-5 mb-2'
     )
     ],
     fluid=True
@@ -145,7 +149,7 @@ def charts(stat_selection2,stat_selection3):
             color='black'
         ),
         showgrid=True,
-        gridwidth=1,
+        gridwidth=0.5,
         gridcolor='black',
         showline=True,
         linewidth=1,
@@ -163,7 +167,10 @@ def charts(stat_selection2,stat_selection3):
         ),
         showline=True,
         linewidth=1,
-        linecolor='black'
+        linecolor='black',
+        showgrid=True,
+        gridwidth=1,
+        gridcolor='black',
     )
 
     pitching_figure.update_layout(
