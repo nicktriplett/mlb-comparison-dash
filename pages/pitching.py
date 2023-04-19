@@ -8,7 +8,33 @@ from pybaseball import pitching_stats
 
 # Creating Pitching Stats Dataframe
 pitching_data_2022=pitching_stats(2022)
-pitching_data=pitching_data_2022[['Season','Name','Team','W','L','WAR','ERA','G','IP','TBF','H','R','ER','HR','BB','HBP','SO','K/9','BB/9','K/BB','AVG','WHIP','BABIP','FIP']].copy()
+pitching_data=pitching_data_2022[['Season','Name','Team','W','L','G','IP','TBF','H','R','ER','HR','BB','HBP','SO','K/9','BB/9','K/BB','AVG','ERA','WHIP','BABIP','FIP','WAR']].copy()
+pitching_data.rename(
+    columns={
+        'W':'Wins (W)',
+        'L':'Losses (L)',
+        'G':'Games Played (G)',
+        'IP':'Innings Pitched (IP)',
+        'TBF':'Total Batters Faced (TBF)',
+        'H':'Hits (H)',
+        'R':'Runs Scored Against (R)',
+        'ER':'Earned Runs (ER)',
+        'HR':'Home Runs Allowed (HR)',
+        'BB':'Walks (BB)',
+        'HBP':'Batters Hit By Pitches (HBP)',
+        'SO':'Strikeouts (SO)',
+        'K/9':'Number of Strikeouts Per 9 Innings (K/9)',
+        'BB/9':'Number of Walks Per 9 Innings (BB/9)',
+        'K/BB':'Strikeout to Walk Ratio (K/BB)',
+        'AVG':"Opponents' Batting Average (AVG)",
+        'ERA':'Earned Run Average (ERA)',
+        'WHIP':'Walks And Hits Per Inning Pitched (WHIP)',
+        'BABIP':'Batting Average on Balls in Play (BABIP)',
+        'FIP':'Fielding Independent Pitching (FIP)',
+        'WAR':'Wins Above Replacement (WAR)'
+    },
+    inplace=True
+)
 pitching_data.loc[:,('Season')]
 
 # Creating and Setting an Index
@@ -72,7 +98,7 @@ layout=dbc.Container(
                     ],
                     optionHeight=25,
                     className='mt-1 mb-3',
-                    value='IP',
+                    value='Innings Pitched (IP)',
                     clearable=False
                 )
             ],
@@ -88,7 +114,7 @@ layout=dbc.Container(
                     ],
                     optionHeight=25,
                     className='mt-1 mb-3',
-                    value='ERA',
+                    value='Earned Run Average (ERA)',
                     clearable=False
                 )
             ],
@@ -187,7 +213,7 @@ def charts(stat_selection2,stat_selection3):
 
     pitching_figure.update_traces(
         marker_color='red',
-        marker_size=10,
+        marker_size=11,
         marker_line_color='black',
         marker_line_width=1,
         textfont_size=14
