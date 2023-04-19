@@ -9,6 +9,31 @@ from pybaseball import batting_stats
 # Creating Batting Stats Dataframe
 batting_data_2022=batting_stats(2022)
 batting_data=batting_data_2022[['Season','Name','Team','G','PA','H','2B','3B','HR','R','RBI','SO','BB','IBB','HBP','SB','AVG','OBP','SLG','OPS','wOBA','wRC','WAR']].copy()
+batting_data.rename(
+    columns={
+        'G': 'Games Played (G)',
+        'PA':'Plate Appearances (PA)',
+        'H':'Hits (H)',
+        '2B':'Doubles (2B)',
+        '3B':'Triples (3B)',
+        'HR':'Home Runs (HR)',
+        'R':'Runs Scored (R)',
+        'RBI':'Runs Batted In (RBI)',
+        'SO':'Strikeouts (SO)',
+        'BB':'Walks (BB)',
+        'IBB':'Intentional Walks (IBB)',
+        'HBP':'Hit By Pitches (HBP)',
+        'SB':'Stolen Bases',
+        'AVG':'Batting Average (AVG)',
+        'OBP':'On-Base Percentage (OBP)',
+        'SLG':'Slugging Percentage (SLG)',
+        'OPS':'On-Base Plus Slugging (OPS)',
+        'wOBA':'Weighted On-Base Average (wOBA)',
+        'wRC':'Weighted Runs Created (wRC)',
+        'WAR':'Wins Above Replacement (WAR)'
+    },
+    inplace=True
+)
 batting_data.loc[:,('Season')]
 
 # Creating and Setting an Index
@@ -65,18 +90,20 @@ layout=dbc.Container(
     dbc.Row([
         dbc.Col(
             children=[
-                dcc.RadioItems(
+                dcc.Dropdown(
                     id='batter_stat_choice',
                     options=[
                         dict(label=x,value=x) for x in batting_stat_list
                     ],
                     className='mt-1 mb-3',
-                    value='HR',
-                    labelStyle={'display':'inline-block'},
-                    style={'columnCount':4,'display': 'flex', 'flex-direction': 'row'}
+                    value='Home Runs (HR)',
+                    multi=False,
+                    optionHeight=25,
+                    clearable=False
                 )
             ],
-            width=6,
+            width=4,
+            className='offset-md-1'
         ),
         dbc.Col(
             children=[
@@ -94,7 +121,7 @@ layout=dbc.Container(
                 )
             ],
             width=4,
-            className='offset-md-1'
+            className='offset-md-2'
         )
     ]),
 
@@ -131,6 +158,9 @@ layout=dbc.Container(
 )
 
 def charts(stat_selection1,list_of_players):
+    if len(stat_selection1)==0:
+        stat_selection1 = ['Home Runs (HR)']
+
     if len(list_of_players)==0:
         list_of_players = ['Aaron Judge (NYY)']
 
