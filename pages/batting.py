@@ -32,14 +32,14 @@ layout=dbc.Container(
     # Title and Dashboard Explanation
     html.H1('MLB Batting Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
     html.P("This is the page to be at to review MLB batters' results from the 2022 MLB Season! 20 statistical measures and 130 MLB players combine on this page to create a comparison bar chart among players that qualified for the 2022 MLB batting title. To qualify for this achievement, players must have had at least 3.1 plate appearances per game (or at least 502 plate appearances during the entire season). To operate this bar chart, simply select the statistical measure that you'd like to compare players with and choose what players you'd like to review on the chart below!",className='text-center text-dark mb-3 mt-2 fs-6'),
-    html.H3('Batting Data Bar Chart', className='text-primary text-center fs-3 mt-3 mb-0'),
+    html.H3('Batting Data Bar Chart', className='text-primary text-center fs-2 mt-3 mb-0'),
     # The Graph
     dbc.Row([
         dbc.Col(
             children=[
                 dcc.Graph(
                     id='batter_chart',
-                    className='m-5',
+                    className='m-4',
                     config=dict(displayModeBar=False),
                 ),
             ],
@@ -76,6 +76,7 @@ layout=dbc.Container(
                     style={'columnCount':4,'display': 'flex', 'flex-direction': 'row'}
                 )
             ],
+            width=6,
         ),
         dbc.Col(
             children=[
@@ -91,7 +92,9 @@ layout=dbc.Container(
                     value=['Aaron Judge (NYY)'],
                     clearable=False
                 )
-            ]
+            ],
+            width=4,
+            className='offset-md-1'
         )
     ]),
 
@@ -114,7 +117,7 @@ layout=dbc.Container(
                 href='https://www.mlb.com/glossary',className='text-primary fs-5'
             )
         ],
-        className='text-dark text-center fs-5 mb-5'
+        className='text-dark text-center fs-5 mb-2'
     )
     ],
     fluid=True
