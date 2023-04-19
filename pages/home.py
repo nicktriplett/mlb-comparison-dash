@@ -13,7 +13,7 @@ layout = html.Div(
     children=[
         html.H1('MLB Comparison Dashboard (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
         html.H2('A BSAN 406 Project Created by Nick Triplett',className='text-center text-dark mt-1 mb-2 fs-3'),
-        html.P("Welcome to my Major League Baseball (MLB) Comparison Dashboard! This dashboard was created as part of many assigned projects through an analytics-oriented class at Southern Illinois University - Carbondale. Inside this dashboard, you'll discover multiple graphs and various statistical results coming from the 2022 MLB season. More information about each graph and results can be found on the other pages of this dashboard. Special thanks are due to Dr. Tyson Van Alfen for all of his help in getting this dashboard running and uploaded online! Enjoy using this MLB dashboard!",className='text-center text-dark mb-0 mt-4 fs-6'),
+        html.P("Welcome to my Major League Baseball (MLB) Comparison Dashboard! This dashboard was created as part of many assigned projects through an analytics-oriented class at Southern Illinois University - Carbondale. Inside this dashboard, you'll discover multiple graphs and various statistical results coming from the 2022 MLB season. More information about each graph and results can be found on the other pages of this dashboard. Special thanks are due to Dr. Tyson Van Alfen for all of his help in getting this dashboard running and uploaded online! Enjoy using this MLB dashboard!",className='text-center text-dark mb-4 mt-4 fs-6'),
         dbc.Row([
             dbc.Col(
                 html.Img(
