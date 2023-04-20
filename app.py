@@ -22,6 +22,8 @@ dashboard.layout = dbc.Container(
                 dbc.NavItem(dbc.NavLink('Home',href='/')),
                 dbc.NavItem(dbc.NavLink('Batting Data Chart',href='/batting')),
                 dbc.NavItem(dbc.NavLink('Pitching Data Chart',href='/pitching')),
+                dbc.NavItem(dbc.NavLink('Team Batting Data Chart',href='/team-batting')),
+                dbc.NavItem(dbc.NavLink('Team Pitching Data Chart',href='/team-pitching')),
             ],
             color='primary',
             dark=True,
