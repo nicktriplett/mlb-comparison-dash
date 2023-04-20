@@ -239,7 +239,7 @@ def charts(stat_selection4,list_of_teams):
     )
 
     team_batting_figure.update_yaxes(
-        title_text='Team Abbreviation',
+        title_text='Team(s)',
         title_font={
         'size': 18,
         'color': 'black'
