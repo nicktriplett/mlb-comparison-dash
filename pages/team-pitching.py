@@ -239,7 +239,7 @@ def charts(stat_selection5,list_of_pitching_teams):
     )
 
     team_pitching_figure.update_yaxes(
-        title_text='Team',
+        title_text='Team(s)',
         title_font={
         'size': 20,
         'color': 'black'
