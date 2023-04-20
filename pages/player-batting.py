@@ -48,16 +48,16 @@ batting_data.drop(columns=['Season','Name','Team'],inplace=True)
 batting_stat_list=[x for x in batting_data.columns]
 batting_player_list = [x for x in batting_data.index]
 
-# Registering the Batting Page
+# Registering the Player Batting Page
 dash.register_page(__name__)
 
 # The Batting Chart Page
 layout=dbc.Container(
     children=[
     # Title and Dashboard Explanation
-    html.H1('MLB Batting Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
+    html.H1('MLB Player Batting Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
     html.P("This is the page to be at to review MLB batters' results from the 2022 MLB Season! 20 statistical measures and 130 MLB players combine on this page to create a comparison bar chart among players that qualified for the 2022 MLB batting title. To qualify for this achievement, players must have had at least 3.1 plate appearances per game (or at least 502 plate appearances during the entire season). To operate this bar chart, simply select the statistical measure that you'd like to compare players with and choose what players you'd like to review on the chart below!",className='text-center text-dark mb-3 mt-2 fs-6'),
-    html.H3('Batting Data Bar Chart', className='text-primary text-center fs-2 mt-3 mb-0'),
+    html.H3('Player Batting Data Bar Chart', className='text-primary text-center fs-2 mt-3 mb-0'),
     # The Graph
     dbc.Row([
         dbc.Col(
@@ -167,7 +167,7 @@ def charts(stat_selection1,list_of_players):
     # Making Batting Data Subset
     batting_data_subset=batting_data.loc[list_of_players,stat_selection1].copy().reset_index()
 
-        # Batting Chart
+    # Batting Chart
     batting_figure=px.bar(
         batting_data_subset,
         x=stat_selection1,
