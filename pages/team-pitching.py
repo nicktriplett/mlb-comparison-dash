@@ -250,7 +250,8 @@ def charts(stat_selection5,list_of_pitching_teams):
         ),
         showline=True,
         linewidth=1,
-        linecolor='black'
+        linecolor='black',
+        categoryorder='total ascending'
     )
 
     team_pitching_figure.update_layout(
