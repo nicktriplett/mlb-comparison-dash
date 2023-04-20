@@ -20,10 +20,24 @@ dashboard.layout = dbc.Container(
             brand='2022 MLB Season Dashboard',
             children=[
                 dbc.NavItem(dbc.NavLink('Home',href='/')),
-                dbc.NavItem(dbc.NavLink('Batting Data Chart',href='/batting')),
-                dbc.NavItem(dbc.NavLink('Pitching Data Chart',href='/pitching')),
-                dbc.NavItem(dbc.NavLink('Team Batting Data Chart',href='/team-batting')),
-                dbc.NavItem(dbc.NavLink('Team Pitching Data Chart',href='/team-pitching')),
+                dbc.DropdownMenu(
+                    children=[
+                        dbc.DropdownMenuItem('Batting Data',href='/player-batting'),
+                        dbc.DropdownMenuItem('Pitching Data',href='/player-pitching'),
+                    ],
+                    nav=True,
+                    in_navbar=True,
+                    label="Player Data"
+                ),
+                dbc.DropdownMenu(
+                    children=[
+                        dbc.DropdownMenuItem('Batting Data',href='/team-batting'),
+                        dbc.DropdownMenuItem('Pitching Data',href='/team-pitching'),
+                    ],
+                    nav=True,
+                    in_navbar=True,
+                    label="Team Data"
+                )
             ],
             color='primary',
             dark=True,
