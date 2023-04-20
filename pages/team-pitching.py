@@ -9,6 +9,40 @@ from pybaseball import team_pitching
 # Creating Pitching Stats Dataframe
 pitching_data_2022=team_pitching(2022)
 pitching_data=pitching_data_2022[['Season','Team','Pitches','Strikes','W','L','SV','BS','G','CG','IP','TBF','H','R','ER','HR','BB','HBP','SO','WP','BK','K/9','BB/9','K/BB','GB/FB','LD%','GB%','FB%','LOB%','H/9','HR/9','AVG','ERA','WHIP','BABIP','FIP','WAR']].copy()
+pitching_data['Team']=pitching_data['Team'].replace(
+    {
+        'NYY':'New York Yankees',
+        'BOS':'Boston Red Sox',
+        'BAL':'Baltimore Orioles',
+        'TBR':'Tampa Bay Rays',
+        'TOR':'Toronto Blue Jays',
+        'CLE':'Cleveland Guardians',
+        'DET':'Detroit Tigers',
+        'KCR':'Kansas City Royals',
+        'MIN':'Minnesota Twins',
+        'CHW':'Chicago White Sox',
+        'HOU':'Houston Astros',
+        'OAK':'Oakland Athletics',
+        'LAA':'Los Angeles Angels',
+        'SEA':'Seattle Mariners',
+        'TEX':'Texas Rangers',
+        'NYM':'New York Mets',
+        'ATL':'Atlanta Braves',
+        'WSN':'Washington Nationals',
+        'PHI':'Philadelphia Phillies',
+        'MIA':'Miami Marlins',
+        'STL':'St. Louis Cardinals',
+        'CHC':'Chicago Cubs',
+        'PIT':'Pittsburgh Pirates',
+        'MIL':'Milwaukee Brewers',
+        'CIN':'Cincinnati Reds',
+        'SDP':'San Diego Padres',
+        'LAD':'Los Angeles Dodgers',
+        'SFG':'San Francisco Giants',
+        'ARI':'Arizona Diamondbacks',
+        'COL':'Colorado Rockies'
+    }
+)
 pitching_data.rename(
     columns={
         'W':'Wins (W)',
@@ -66,9 +100,9 @@ dash.register_page(__name__)
 layout=dbc.Container(
     children=[
     # Title and Dashboard Explanation
-    html.H1('MLB Pitching Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
-    html.P("This page is the destination for reviewing MLB pitchers' results from the 2022 MLB Season! Included in the chart below is more than 20 statistical measures that determine how pitchers performed during play last season. Also included is 45 plotted points that represent the 45 MLB pitchers that qualified for 2022 MLB pitching awards. To qualify to be a pitcher on this graph, pitchers must have pitched at least 1 inning per game (or at least 162 innings during the entire season) last season. To make this scatter plot work, select two statistical measures (for both axes) that you'd like to use to compare pitchers with on this chart!",className='text-center text-dark mb-3 mt-2 fs-6'),
-    html.H3('Pitching Data Scatter Plot', className='text-primary text-center fs-2 mt-3 mb-0'),
+    html.H1('MLB Team Pitching Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
+    html.P("This is the best place to be for pitching data sorted by teams! Much like the Team Batting Data page, this page includes more than 30 different statistical measures and all 30 MLB teams' seasonal pitching data from the 2022 campaign. This graph works as you select different statistical measures and choose different MLB teams to review with those statistical measures.",className='text-center text-dark mb-3 mt-2 fs-6'),
+    html.H3('Team Pitching Data Scatter Plot', className='text-primary text-center fs-2 mt-3 mb-0'),
     # The Graph
     dbc.Row([
         dbc.Col(
@@ -127,7 +161,7 @@ layout=dbc.Container(
                     placeholder='Please select a team to review.',
                     optionHeight=25,
                     className='mt-1 mb-3',
-                    value=['HOU'],
+                    value=['Houston Astros'],
                     clearable=False
                 )
             ],
@@ -172,7 +206,7 @@ def charts(stat_selection5,list_of_pitching_teams):
         stat_selection5 = ['Earned Run Average (ERA)']
 
     if len(list_of_pitching_teams)==0:
-        list_of_pitching_teams = ['HOU']
+        list_of_pitching_teams = ['Houston Astros']
 
     # Making Batting Data Subset
     team_pitching_data_subset=pitching_data.loc[list_of_pitching_teams,stat_selection5].copy().reset_index()
@@ -189,11 +223,11 @@ def charts(stat_selection5,list_of_pitching_teams):
 
     team_pitching_figure.update_xaxes(
         title_font={
-        'size': 18,
+        'size': 20,
         'color': 'black'
         },
         tickfont=dict(
-            size=14,
+            size=16,
             color='black'
         ),
         showgrid=True,
@@ -205,13 +239,13 @@ def charts(stat_selection5,list_of_pitching_teams):
     )
 
     team_pitching_figure.update_yaxes(
-        title_text='Team Abbreviation',
+        title_text='Team',
         title_font={
-        'size': 18,
+        'size': 20,
         'color': 'black'
         },
         tickfont=dict(
-            size=14,
+            size=16,
             color='black'
         ),
         showline=True,
