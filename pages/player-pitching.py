@@ -55,9 +55,9 @@ dash.register_page(__name__)
 layout=dbc.Container(
     children=[
     # Title and Dashboard Explanation
-    html.H1('MLB Pitching Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
+    html.H1('MLB Player Pitching Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
     html.P("This page is the destination for reviewing MLB pitchers' results from the 2022 MLB Season! Included in the chart below is more than 20 statistical measures that determine how pitchers performed during play last season. Also included is 45 plotted points that represent the 45 MLB pitchers that qualified for 2022 MLB pitching awards. To qualify to be a pitcher on this graph, pitchers must have pitched at least 1 inning per game (or at least 162 innings during the entire season) last season. To make this scatter plot work, select two statistical measures (for both axes) that you'd like to use to compare pitchers with on this chart!",className='text-center text-dark mb-3 mt-2 fs-6'),
-    html.H3('Pitching Data Scatter Plot', className='text-primary text-center fs-2 mt-3 mb-0'),
+    html.H3('Player Pitching Data Scatter Plot', className='text-primary text-center fs-2 mt-3 mb-0'),
     # The Graph
     dbc.Row([
         dbc.Col(
