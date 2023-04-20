@@ -9,6 +9,40 @@ from pybaseball import team_batting
 # Creating Batting Stats Dataframe
 batting_data_2022=team_batting(2022)
 batting_data=batting_data_2022[['Season','Team','G','PA','H','1B','2B','3B','HR','R','RBI','SO','K%','BB','BB%','IBB','BB/K','HBP','SF','SH','SB','CS','AVG','OBP','SLG','OPS','BABIP','LD%','GB%','FB%','wOBA','wRC','WAR']].copy()
+batting_data['Team']=batting_data['Team'].replace(
+    {
+        'NYY':'New York Yankees',
+        'BOS':'Boston Red Sox',
+        'BAL':'Baltimore Orioles',
+        'TBR':'Tampa Bay Rays',
+        'TOR':'Toronto Blue Jays',
+        'CLE':'Cleveland Guardians',
+        'DET':'Detroit Tigers',
+        'KCR':'Kansas City Royals',
+        'MIN':'Minnesota Twins',
+        'CHW':'Chicago White Sox',
+        'HOU':'Houston Astros',
+        'OAK':'Oakland Athletics',
+        'LAA':'Los Angeles Angels',
+        'SEA':'Seattle Mariners',
+        'TEX':'Texas Rangers',
+        'NYM':'New York Mets',
+        'ATL':'Atlanta Braves',
+        'WSN':'Washington Nationals',
+        'PHI':'Philadelphia Phillies',
+        'MIA':'Miami Marlins',
+        'STL':'St. Louis Cardinals',
+        'CHC':'Chicago Cubs',
+        'PIT':'Pittsburgh Pirates',
+        'MIL':'Milwaukee Brewers',
+        'CIN':'Cincinnati Reds',
+        'SDP':'San Diego Padres',
+        'LAD':'Los Angeles Dodgers',
+        'SFG':'San Francisco Giants',
+        'ARI':'Arizona Diamondbacks',
+        'COL':'Colorado Rockies'
+    }
+)
 batting_data.rename(
     columns={
         'G': 'Games Played (G)',
@@ -65,9 +99,9 @@ dash.register_page(__name__)
 layout=dbc.Container(
     children=[
     # Title and Dashboard Explanation
-    html.H1('MLB Batting Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
-    html.P("This is the page to be at to review MLB batters' results from the 2022 MLB Season! 20 statistical measures and 130 MLB players combine on this page to create a comparison bar chart among players that qualified for the 2022 MLB batting title. To qualify for this achievement, players must have had at least 3.1 plate appearances per game (or at least 502 plate appearances during the entire season). To operate this bar chart, simply select the statistical measure that you'd like to compare players with and choose what players you'd like to review on the chart below!",className='text-center text-dark mb-3 mt-2 fs-6'),
-    html.H3('Batting Data Bar Chart', className='text-primary text-center fs-2 mt-3 mb-0'),
+    html.H1('MLB Team Batting Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
+    html.P("You want batting data sorted by teams? You got it! Inside this page is a bar chart that includes more than 30 different statistical measures and all 30 MLB teams' seasonal batting data from the 2022 campaign. All that's needed to make this chart work is to have a statistical measure and MLB team(s) selected to compare with the statistical measure.",className='text-center text-dark mb-3 mt-2 fs-6'),
+    html.H3('Team Batting Data Bar Chart', className='text-primary text-center fs-2 mt-3 mb-0'),
     # The Graph
     dbc.Row([
         dbc.Col(
@@ -126,7 +160,7 @@ layout=dbc.Container(
                     placeholder='Please select a team to review.',
                     optionHeight=25,
                     className='mt-1 mb-3',
-                    value=['HOU'],
+                    value=['Houston Astros'],
                     clearable=False
                 )
             ],
@@ -172,7 +206,7 @@ def charts(stat_selection4,list_of_teams):
         stat_selection4 = ['Home Runs (HR)']
 
     if len(list_of_teams)==0:
-        list_of_teams = ['HOU']
+        list_of_teams = ['Houston Astros']
 
     # Making Batting Data Subset
     team_batting_data_subset=batting_data.loc[list_of_teams,stat_selection4].copy().reset_index()
