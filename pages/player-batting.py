@@ -206,7 +206,8 @@ def charts(stat_selection1,list_of_players):
         ),
         showline=True,
         linewidth=1,
-        linecolor='black'
+        linecolor='black',
+        categoryorder='total ascending'
     )
 
     batting_figure.update_layout(
