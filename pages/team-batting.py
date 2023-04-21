@@ -4,12 +4,12 @@ import plotly.express as px
 import dash
 from dash import Dash, html, dcc, Input, Output, State, callback
 import dash_bootstrap_components as dbc
-from pybaseball import team_batting
+from pybaseball import team_pitching
 
-# Creating Batting Stats Dataframe
-batting_data_2022=team_batting(2022)
-batting_data=batting_data_2022[['Season','Team','G','PA','H','1B','2B','3B','HR','R','RBI','SO','K%','BB','BB%','IBB','BB/K','HBP','SF','SH','SB','CS','AVG','OBP','SLG','OPS','BABIP','LD%','GB%','FB%','wOBA','wRC','WAR']].copy()
-batting_data['Team']=batting_data['Team'].replace(
+# Creating Pitching Stats Dataframe
+pitching_data_2022=team_pitching(2022)
+pitching_data=pitching_data_2022[['Season','Team','Pitches','Strikes','W','L','SV','BS','G','CG','IP','TBF','H','R','ER','HR','BB','HBP','SO','WP','BK','K/9','BB/9','K/BB','GB/FB','LD%','GB%','FB%','LOB%','H/9','HR/9','AVG','ERA','WHIP','BABIP','FIP','WAR']].copy()
+pitching_data['Team']=pitching_data['Team'].replace(
     {
         'NYY':'New York Yankees',
         'BOS':'Boston Red Sox',
@@ -43,71 +43,72 @@ batting_data['Team']=batting_data['Team'].replace(
         'COL':'Colorado Rockies'
     }
 )
-batting_data.rename(
+pitching_data.rename(
     columns={
-        'G': 'Games Played (G)',
-        'PA':'Plate Appearances (PA)',
+        'W':'Wins (W)',
+        'L':'Losses (L)',
+        'SV':'Saves (SV)',
+        'BS':'Blown Saves (BS)',
+        'G':'Games Played (G)',
+        'CG':'Complete Games (CG)',
+        'IP':'Innings Pitched (IP)',
+        'TBF':'Total Batters Faced (TBF)',
         'H':'Hits (H)',
-        '1B':'Singles (1B)',
-        '2B':'Doubles (2B)',
-        '3B':'Triples (3B)',
-        'HR':'Home Runs (HR)',
-        'R':'Runs Scored (R)',
-        'RBI':'Runs Batted In (RBI)',
-        'SO':'Strikeouts (SO)',
-        'K%':'Strikeout Percentage (K%)',
+        'R':'Runs Scored Against (R)',
+        'ER':'Earned Runs (ER)',
+        'HR':'Home Runs Allowed (HR)',
         'BB':'Walks (BB)',
-        'BB%':'Walk Percentage (BB%)',
-        'IBB':'Intentional Walks (IBB)',
-        'BB/K':'Walk-to-Strikeout Ratio (BB/K)',
-        'HBP':'Hit By Pitches (HBP)',
-        'SF':'Sacrifice Flies (SF)',
-        'SH':'Sacrifice Hits (Bunts)',
-        'SB':'Stolen Bases',
-        'CS':'Caught Stealing (CS)',
-        'AVG':'Batting Average (AVG)',
-        'OBP':'On-Base Percentage (OBP)',
-        'SLG':'Slugging Percentage (SLG)',
-        'OPS':'On-Base Plus Slugging (OPS)',
-        'BABIP':'Batting Average on Balls in Play (BABIP)',
-        'LD%':'Line Drive Percentage (LD%)',
-        'GB%':'Ground Ball Percentage (GD%)',
+        'HBP':'Batters Hit By Pitches (HBP)',
+        'SO':'Strikeouts (SO)',
+        'WP':'Wild Pitches',
+        'BK':'Balks',
+        'K/9':'Number of Strikeouts Per 9 Innings (K/9)',
+        'BB/9':'Number of Walks Per 9 Innings (BB/9)',
+        'K/BB':'Strikeout to Walk Ratio (K/BB)',
+        'GB/FB':'Ground Ball-to-Fly Ball Ratio (GB/FB)','LD%':'Line Drive Percentage (LD%)',
+        'GB%':'Ground Ball Percentage (GB%)',
         'FB%':'Fly Ball Percentage (FB%)',
-        'wOBA':'Weighted On-Base Average (wOBA)',
-        'wRC':'Weighted Runs Created (wRC)',
+        'LOB%':'Runners Left On Base Percentage (LOB%)',
+        'H/9':'Hits Given Up Per 9 Innings (H/9)',
+        'HR/9':'Home Runs Given Up Per 9 Innings (HR/9)',
+        'AVG':"Opponents' Batting Average (AVG)",
+        'ERA':'Earned Run Average (ERA)',
+        'WHIP':'Walks And Hits Per Inning Pitched (WHIP)',
+        'BABIP':'Batting Average on Balls in Play (BABIP)',
+        'FIP':'Fielding Independent Pitching (FIP)',
         'WAR':'Wins Above Replacement (WAR)'
     },
     inplace=True
 )
-batting_data.loc[:,('Season')]
+pitching_data.loc[:,('Season')]
 
 # Creating and Setting an Index
-batting_data.loc[:,('Team')]
-batting_data.set_index('Team',inplace=True)
+pitching_data.loc[:,('Team')]
+pitching_data.set_index('Team',inplace=True)
 
-# Removing Batting Dataframe Column
-batting_data.drop(columns=['Season'],inplace=True)
+# Removing Pitching Dataframe Column
+pitching_data.drop(columns=['Season'],inplace=True)
 
-# Sorting Lists for Dashboard Components
-batting_stat_list=[x for x in batting_data.columns]
-batting_team_list=[x for x in batting_data.index]
+# Sorting a List for Dashboard Components
+pitching_stat_list=[x for x in pitching_data.columns]
+pitching_team_list=[x for x in pitching_data.index]
 
-# Registering the Team Batting Page
+# Registering the Pitching Page
 dash.register_page(__name__)
 
-# The Batting Chart Page
+# The Pitching Chart Page
 layout=dbc.Container(
     children=[
     # Title and Dashboard Explanation
-    html.H1('MLB Team Batting Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
-    html.P("You want batting data sorted by teams? You got it! Inside this page is a bar chart that includes more than 30 different statistical measures and all 30 MLB teams' seasonal batting data from the 2022 campaign. All that's needed to make this chart work is to have a statistical measure and MLB team(s) selected to compare with the statistical measure.",className='text-center text-dark mb-3 mt-2 fs-6'),
-    html.H3('Team Batting Data Bar Chart', className='text-primary text-center fs-2 mt-3 mb-0'),
+    html.H1('MLB Team Pitching Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
+    html.P("This is the best place to be for pitching data sorted by teams! Much like the Team Batting Data page, this page includes more than 30 different statistical measures and all 30 MLB teams' seasonal pitching data from the 2022 campaign. This graph works as you select different statistical measures and choose different MLB teams to review with those statistical measures.",className='text-center text-dark mb-3 mt-2 fs-6'),
+    html.H3('Team Pitching Data Bar Chart', className='text-primary text-center fs-2 mt-3 mb-0'),
     # The Graph
     dbc.Row([
         dbc.Col(
             children=[
                 dcc.Graph(
-                    id='team_batting_chart',
+                    id='team_pitching_bar_chart',
                     className='m-4',
                     config=dict(displayModeBar=False),
                 ),
@@ -135,12 +136,12 @@ layout=dbc.Container(
         dbc.Col(
             children=[
                 dcc.Dropdown(
-                    id='team_batting_stat_choice',
+                    id='team_pitching_stat_choice',
                     options=[
-                        dict(label=x,value=x) for x in batting_stat_list
+                        dict(label=x,value=x) for x in pitching_stat_list
                     ],
                     className='mt-1 mb-3',
-                    value='Home Runs (HR)',
+                    value='Earned Run Average (ERA)',
                     multi=False,
                     optionHeight=25,
                     clearable=False
@@ -152,9 +153,9 @@ layout=dbc.Container(
         dbc.Col(
             children=[
                 dcc.Dropdown(
-                    id='team_dropdown',
+                    id='pitching_team_dropdown',
                     options=[
-                        dict(label=x,value=x) for x in batting_team_list
+                        dict(label=x,value=x) for x in pitching_team_list
                     ],
                     multi=True,
                     placeholder='Please select a team to review.',
@@ -168,7 +169,6 @@ layout=dbc.Container(
             className='offset-md-2'
         )
     ]),
-
     # Data Sources and Information
     html.Div(
         children=[
@@ -196,25 +196,25 @@ layout=dbc.Container(
 
 # Section for the Callback
 @callback(
-    Output('team_batting_chart','figure'),
-    Input('team_batting_stat_choice','value'),
-    Input('team_dropdown','value'),
+    Output('team_pitching_bar_chart','figure'),
+    Input('team_pitching_stat_choice','value'),
+    Input('pitching_team_dropdown','value'),
 )
 
-def charts(stat_selection4,list_of_teams):
-    if len(stat_selection4)==0:
-        stat_selection4 = ['Home Runs (HR)']
+def charts(stat_selection5,list_of_pitching_teams):
+    if len(stat_selection5)==0:
+        stat_selection5 = ['Earned Run Average (ERA)']
 
-    if len(list_of_teams)==0:
-        list_of_teams = ['Houston Astros']
+    if len(list_of_pitching_teams)==0:
+        list_of_pitching_teams = ['Houston Astros']
 
     # Making Batting Data Subset
-    team_batting_data_subset=batting_data.loc[list_of_teams,stat_selection4].copy().reset_index()
+    team_pitching_data_subset=pitching_data.loc[list_of_pitching_teams,stat_selection5].copy().reset_index()
 
     # Batting Chart
-    team_batting_figure=px.bar(
-        team_batting_data_subset,
-        x=stat_selection4,
+    team_pitching_figure=px.bar(
+        team_pitching_data_subset,
+        x=stat_selection5,
         y='Team',
         orientation='h',
         text_auto=True,
@@ -254,13 +254,13 @@ def charts(stat_selection4,list_of_teams):
         }
     )
 
-    team_batting_figure.update_xaxes(
+    team_pitching_figure.update_xaxes(
         title_font={
-        'size': 18,
+        'size': 20,
         'color': 'black'
         },
         tickfont=dict(
-            size=14,
+            size=16,
             color='black'
         ),
         showgrid=True,
@@ -271,14 +271,14 @@ def charts(stat_selection4,list_of_teams):
         linecolor='black'
     )
 
-    team_batting_figure.update_yaxes(
+    team_pitching_figure.update_yaxes(
         title_text='Team(s)',
         title_font={
-        'size': 18,
+        'size': 20,
         'color': 'black'
         },
         tickfont=dict(
-            size=14,
+            size=16,
             color='black'
         ),
         showline=True,
@@ -287,7 +287,7 @@ def charts(stat_selection4,list_of_teams):
         categoryorder='total ascending'
     )
 
-    team_batting_figure.update_layout(
+    team_pitching_figure.update_layout(
         title_font={
         'size': 24,
         'color': 'black'
@@ -299,7 +299,8 @@ def charts(stat_selection4,list_of_teams):
         showlegend=False,
     )
 
-    team_batting_figure.update_traces(
+    team_pitching_figure.update_traces(
         textfont_size=14
 )
-    return team_batting_figure
+    return team_pitching_figure
+
