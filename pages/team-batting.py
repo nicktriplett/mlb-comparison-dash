@@ -218,7 +218,40 @@ def charts(stat_selection4,list_of_teams):
         y='Team',
         orientation='h',
         text_auto=True,
-        title=' '
+        title=' ',
+        color='Team',
+        color_discrete_map={
+            'Arizona Diamondbacks':'#A71930',
+            'Atlanta Braves':'#13274F',
+            'Baltimore Orioles':'#DF4601',
+            'Boston Red Sox':'#BD3039',
+            'Chicago White Sox':'#27251F',
+            'Chicago Cubs':'#0E3386',
+            'Cincinnati Reds':'#C6011F',
+            'Cleveland Guardians':'#00385D',
+            'Colorado Rockies':'#333366',
+            'Detroit Tigers':'#0C2340',
+            'Houston Astros':'#002D62',
+            'Kansas City Royals':'#004687',
+            'Los Angeles Angels':'#BA0021',
+            'Los Angeles Dodgers':'#005A9C',
+            'Miami Marlins':'#000000',
+            'Milwaukee Brewers':'#12284B',
+            'Minnesota Twins':'#002B5C',
+            'New York Yankees':'#003087',
+            'New York Mets':'#002D72',
+            'Oakland Athletics':'#003831',
+            'Philadelphia Phillies':'#E81828',
+            'Pittsburgh Pirates':'#FDB827',
+            'San Diego Padres':'#2F241D',
+            'San Francisco Giants':'#FD5A1E',
+            'Seattle Mariners':'#0C2C56',
+            'St. Louis Cardinals':'#C41E3A',
+            'Tampa Bay Rays':'#092C5C',
+            'Texas Rangers':'#003278',
+            'Toronto Blue Jays':'#134A8E',
+            'Washington Nationals':'#AB0003',
+        }
     )
 
     team_batting_figure.update_xaxes(
@@ -267,9 +300,6 @@ def charts(stat_selection4,list_of_teams):
     )
 
     team_batting_figure.update_traces(
-        marker_color='darkblue',
-        marker_line_color='black',
-        marker_line_width=0.5,
         textfont_size=14
 )
     return team_batting_figure
