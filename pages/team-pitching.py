@@ -102,7 +102,7 @@ layout=dbc.Container(
     # Title and Dashboard Explanation
     html.H1('MLB Team Pitching Results (2022 Season)',className='text-center text-danger mt-3 mb-2 fs-1'),
     html.P("This is the best place to be for pitching data sorted by teams! Much like the Team Batting Data page, this page includes more than 30 different statistical measures and all 30 MLB teams' seasonal pitching data from the 2022 campaign. This graph works as you select different statistical measures and choose different MLB teams to review with those statistical measures.",className='text-center text-dark mb-3 mt-2 fs-6'),
-    html.H3('Team Pitching Data Scatter Plot', className='text-primary text-center fs-2 mt-3 mb-0'),
+    html.H3('Team Pitching Data Bar Chart', className='text-primary text-center fs-2 mt-3 mb-0'),
     # The Graph
     dbc.Row([
         dbc.Col(
@@ -218,7 +218,40 @@ def charts(stat_selection5,list_of_pitching_teams):
         y='Team',
         orientation='h',
         text_auto=True,
-        title=' '
+        title=' ',
+        color='Team',
+        color_discrete_map={
+            'Arizona Diamondbacks':'#A71930',
+            'Atlanta Braves':'#13274F',
+            'Baltimore Orioles':'#DF4601',
+            'Boston Red Sox':'#BD3039',
+            'Chicago White Sox':'#27251F',
+            'Chicago Cubs':'#0E3386',
+            'Cincinnati Reds':'#C6011F',
+            'Cleveland Guardians':'#00385D',
+            'Colorado Rockies':'#333366',
+            'Detroit Tigers':'#0C2340',
+            'Houston Astros':'#002D62',
+            'Kansas City Royals':'#004687',
+            'Los Angeles Angels':'#BA0021',
+            'Los Angeles Dodgers':'#005A9C',
+            'Miami Marlins':'#000000',
+            'Milwaukee Brewers':'#12284B',
+            'Minnesota Twins':'#002B5C',
+            'New York Yankees':'#003087',
+            'New York Mets':'#002D72',
+            'Oakland Athletics':'#003831',
+            'Philadelphia Phillies':'#E81828',
+            'Pittsburgh Pirates':'#FDB827',
+            'San Diego Padres':'#2F241D',
+            'San Francisco Giants':'#FD5A1E',
+            'Seattle Mariners':'#0C2C56',
+            'St. Louis Cardinals':'#C41E3A',
+            'Tampa Bay Rays':'#092C5C',
+            'Texas Rangers':'#003278',
+            'Toronto Blue Jays':'#134A8E',
+            'Washington Nationals':'#AB0003',
+        }
     )
 
     team_pitching_figure.update_xaxes(
@@ -267,9 +300,6 @@ def charts(stat_selection5,list_of_pitching_teams):
     )
 
     team_pitching_figure.update_traces(
-        marker_color='darkblue',
-        marker_line_color='black',
-        marker_line_width=0.5,
         textfont_size=14
 )
     return team_pitching_figure
